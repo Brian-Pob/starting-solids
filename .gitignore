@@ -23,6 +23,7 @@ netlify
 
 # Temp
 gitignore
+.data
 
 # System Files
 .DS_Store

@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "helloworld-c1de3",
+    "start": "helloworld-c1de3"
+  },
+  "targets": {},
+  "etags": {}
+}

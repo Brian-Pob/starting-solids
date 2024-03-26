@@ -1,5 +1,6 @@
 // @refresh reload
 import { createHandler, StartServer } from "@solidjs/start/server";
+import { Title } from '@solidjs/meta';
 
 export default createHandler(() => (
   <StartServer
