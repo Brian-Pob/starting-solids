@@ -1,5 +1,12 @@
 import type { RouteSectionProps } from "@solidjs/router";
-import { createSignal, Match, type Setter, Show, Switch } from "solid-js";
+import {
+	type Accessor,
+	createSignal,
+	Match,
+	type Setter,
+	Show,
+	Switch,
+} from "solid-js";
 import {
 	GoogleAuthProvider,
 	getAuth,
@@ -40,7 +47,10 @@ async function writeMessage(content: string) {
 	}
 }
 
-async function handleImageUpload(e: SubmitEvent, setIsUploading: Setter<boolean>, ) {
+async function handleImageUpload(
+	e: SubmitEvent,
+	setIsUploading: Setter<boolean>,
+) {
 	if (!e || !e.target) {
 		console.error("No event found!");
 		return;
@@ -55,9 +65,13 @@ async function handleImageUpload(e: SubmitEvent, setIsUploading: Setter<boolean>
 		storage,
 		`images/${new Date().getTime()}.${file.name}`,
 	);
-	setIsUploading(true);
+
 	const uploadTask = uploadBytesResumable(stRef, file);
-	uploadTask.on( "state_changed", (snapshot) => {
+	uploadTask.on(
+		"state_changed",
+		(snapshot) => {
+			setIsUploading(true);
+
 			const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 			console.log(`Upload is ${progress}% done`);
 			switch (snapshot.state) {
@@ -69,10 +83,15 @@ async function handleImageUpload(e: SubmitEvent, setIsUploading: Setter<boolean>
 					break;
 			}
 		},
-		(error) => { console.error("🔥 - Error uploading file: ", file.name, file.type); },
-		() => { console.log("Upload is complete"); },
+		(error) => {
+			console.error("🔥 - Error uploading file: ", file.name, file.type);
+			setIsUploading(false);
+		},
+		() => {
+			console.log("Upload is complete");
+			setIsUploading(false);
+		},
 	);
-	setIsUploading(false);
 }
 
 function handleImageChange(e: Event, setSelectedImage: Setter<File | null>) {
@@ -118,7 +137,9 @@ export default function Login(props: RouteSectionProps) {
 					<Show when={isUploading()}>
 						<p>Uploading...</p>
 					</Show>
-					<form onSubmit={(e) => handleImageUpload(e, setIsUploading)}>
+					<form
+						onSubmit={(e) => handleImageUpload(e, setIsUploading)}
+					>
 						<input
 							type="file"
 							name="imageUpload"
