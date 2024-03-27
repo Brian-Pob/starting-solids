@@ -21,6 +21,7 @@ import {
 } from "firebase/storage";
 import { getFirestore, addDoc, collection } from "firebase/firestore/lite";
 import { Title } from "@solidjs/meta";
+import * as _ from 'lodash-es';
 
 function FirebaseLogin() {
 	const app = useFirebaseApp();
@@ -72,7 +73,7 @@ async function handleImageUpload(
 		(snapshot) => {
 			setIsUploading(true);
 
-			const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			const progress = _.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100, 2)
 			console.log(`Upload is ${progress}% done`);
 			switch (snapshot.state) {
 				case "paused":
