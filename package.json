@@ -4,9 +4,11 @@
   "scripts": {
     "dev": "vinxi dev --port 5173",
     "build": "vinxi build",
-    "start": "vinxi start --port 4173"
+    "preview": "vinxi start --port 4173",
+    "start": "vinxi start"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "latest",
     "@types/node": "^20.10.1"
   },
   "dependencies": {
